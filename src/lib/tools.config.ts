@@ -19,6 +19,12 @@ export const TOOLS: ToolConfig[] = [
     description: "Đổi ảnh WebP sang PNG (lossless) không cần server.",
     accent: "from-violet-500 to-fuchsia-500",
   },
+  {
+    slug: "imgbb-upload",
+    title: "Upload ImgBB (multi)",
+    description: "Upload 1 hoặc nhiều ảnh lên ImgBB và lấy link công khai.",
+    accent: "from-amber-500 to-rose-500",
+  },
 ];
 
 // Gợi ý thêm tool mới:
