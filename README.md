@@ -15,7 +15,7 @@ Một bộ sưu tập các công cụ chuyển đổi file tiện lợi, chạy 
 
 <!-- Thay ảnh minh họa bằng ảnh thực tế nếu có -->
 
-![Screenshot](public/globe.svg)
+![Screenshot](public/quoc_tools.png)
 
 ## 📁 Cấu trúc thư mục
 
