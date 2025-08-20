@@ -25,7 +25,7 @@ export default function WebpToPngPage() {
           if (!ctx) throw new Error("Canvas context not available");
           ctx.drawImage(img, 0, 0);
 
-      setStatus("Đang xuất PNG...");
+          setStatus("Đang xuất PNG...");
           canvas.toBlob(
             (blob) => {
               if (!blob) {
@@ -40,7 +40,7 @@ export default function WebpToPngPage() {
               a.click();
               a.remove();
               URL.revokeObjectURL(a.href);
-        toast.success("Đã tải xuống", `${outName}.png đã được tạo.`);
+              toast.success("Đã tải xuống", `${outName}.png đã được tạo.`);
               resolve();
             },
             "image/png",
@@ -53,7 +53,7 @@ export default function WebpToPngPage() {
         }
       };
       img.onerror = () =>
-    reject(new Error("Không thể tải ảnh WebP. File có hợp lệ không?"));
+        reject(new Error("Không thể tải ảnh WebP. File có hợp lệ không?"));
       img.src = url;
     });
 

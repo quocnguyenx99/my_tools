@@ -25,17 +25,21 @@ type FileItem = {
 const MAX_SIZE = 32 * 1024 * 1024; // 32MB
 const CONCURRENCY = 3;
 const ALBUM_URL = "https://ibb.co/album/N6Tp2J";
+const API_ROUTE = "/api/quoc-imgbb"; // Sử dụng route khác để đổi key
+const UPLOAD_PASSWORD = "Mercy@298919"; // Đổi mật khẩu tại đây
 
-export default function ImgbbUploadPage() {
+export default function QuocImgUploadPage() {
+  // Hooks và state cho upload (luôn luôn khai báo trước return)
+  const [authed, setAuthed] = useState(false);
+  const [inputPwd, setInputPwd] = useState("");
+  const [pwdError, setPwdError] = useState("");
   const inputRef = useRef<HTMLInputElement | null>(null);
   const dropRef = useRef<HTMLDivElement | null>(null);
-
   const [items, setItems] = useState<FileItem[]>([]);
   const [busy, setBusy] = useState(false);
   const [msg, setMsg] = useState("");
   const toast = useToast();
 
-  // Helpers
   const addFiles = useCallback((files: File[]) => {
     const normalized = files
       .filter((f) => f.size <= MAX_SIZE)
@@ -61,7 +65,6 @@ export default function ImgbbUploadPage() {
     if (inputRef.current) inputRef.current.value = "";
   };
 
-  // Drag & Drop
   useEffect(() => {
     const el = dropRef.current;
     if (!el) return;
@@ -85,7 +88,6 @@ export default function ImgbbUploadPage() {
     };
   }, [addFiles]);
 
-  // Paste (Ctrl+V)
   useEffect(() => {
     const onPaste = (e: ClipboardEvent) => {
       if (!e.clipboardData) return;
@@ -100,7 +102,6 @@ export default function ImgbbUploadPage() {
     () => items.filter((i) => i.status === "queued").length,
     [items]
   );
-  // number of files currently uploading/processing
   const doneCount = useMemo(
     () => items.filter((i) => i.status === "done").length,
     [items]
@@ -114,10 +115,6 @@ export default function ImgbbUploadPage() {
         const form = new FormData();
         form.append("image", item.file, item.name);
         form.append("name", item.name);
-        // Nếu muốn ép thời gian tự xoá cho file này:
-        // form.append("expiration", "0");
-
-        // progress client -> server
         xhr.upload.onprogress = (e) => {
           if (e.lengthComputable) {
             const pct = Math.round((e.loaded / e.total) * 100);
@@ -130,10 +127,8 @@ export default function ImgbbUploadPage() {
             );
           }
         };
-
         xhr.onreadystatechange = () => {
           if (xhr.readyState === 2) {
-            // Headers received -> coi như đã upload xong phía client, server đang xử lý
             setItems((prev) =>
               prev.map((x) =>
                 x.id === item.id
@@ -143,7 +138,6 @@ export default function ImgbbUploadPage() {
             );
           }
         };
-
         xhr.onload = () => {
           try {
             const resp = JSON.parse(xhr.responseText || "{}");
@@ -165,12 +159,9 @@ export default function ImgbbUploadPage() {
               setItems((prev) =>
                 prev.map((x) => (x.id === item.id ? updated : x))
               );
-              // toast success for single file
               try {
                 toast.success("Upload thành công", item.name);
-              } catch {
-                // ignore
-              }
+              } catch {}
               resolve(updated);
             } else {
               const updated: FileItem = {
@@ -204,7 +195,6 @@ export default function ImgbbUploadPage() {
             resolve(updated);
           }
         };
-
         xhr.onerror = () => {
           const updated: FileItem = {
             ...item,
@@ -214,15 +204,13 @@ export default function ImgbbUploadPage() {
           setItems((prev) => prev.map((x) => (x.id === item.id ? updated : x)));
           resolve(updated);
         };
-
-        xhr.open("POST", "/api/imgbb");
+        xhr.open("POST", API_ROUTE); // Đổi route API
         xhr.send(form);
       });
     },
     [toast]
   );
 
-  // Runner: giới hạn song song (CONCURRENCY)
   const runUpload = useCallback(async () => {
     if (!items.some((i) => i.status === "queued")) {
       setMsg("Không có file nào trong hàng đợi.");
@@ -230,11 +218,9 @@ export default function ImgbbUploadPage() {
     }
     setBusy(true);
     setMsg("Đang upload...");
-
     let active = 0;
     let idx = 0;
-
-    const queue = [...items]; // bản sao
+    const queue = [...items];
     const next = async () => {
       while (active < CONCURRENCY && idx < queue.length) {
         const it = queue[idx++];
@@ -246,7 +232,6 @@ export default function ImgbbUploadPage() {
         });
       }
     };
-
     await new Promise<void>((resolve) => {
       const timer = setInterval(() => {
         const anyRunning = items.some(
@@ -262,7 +247,6 @@ export default function ImgbbUploadPage() {
       }, 250);
       next();
     });
-
     setBusy(false);
     setMsg("Hoàn tất ✅");
   }, [items, uploadOne]);
@@ -295,13 +279,60 @@ export default function ImgbbUploadPage() {
     copy(lines.join("\n"));
   };
 
+  // Nếu chưa xác thực, hiển thị form nhập mật khẩu
+  if (!authed) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[60vh]">
+        <div className="bg-[var(--card)] p-6 rounded-xl shadow w-full max-w-xs">
+          <div className="mb-2 font-semibold text-lg text-center">
+            Chỗ lưu ảnh của Quốc
+          </div>
+          <input
+            type="password"
+            className="w-full px-3 py-2 rounded border border-slate-300 mb-2"
+            placeholder="Nhập mật khẩu"
+            value={inputPwd}
+            onChange={(e) => setInputPwd(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                if (inputPwd === UPLOAD_PASSWORD) {
+                  setAuthed(true);
+                  setPwdError("");
+                } else {
+                  setPwdError("Sai mật khẩu!");
+                }
+              }
+            }}
+          />
+          <button
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white rounded py-2 font-medium"
+            onClick={() => {
+              if (inputPwd === UPLOAD_PASSWORD) {
+                setAuthed(true);
+                setPwdError("");
+              } else {
+                setPwdError("Sai mật khẩu!");
+              }
+            }}
+          >
+            Đăng nhập
+          </button>
+          {pwdError && (
+            <div className="text-red-500 text-sm mt-2 text-center">
+              {pwdError}
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div>
       <PageHeader
-        title="Upload ImgBB (multi)"
-        subtitle="Kéo-thả / chọn / dán ảnh → upload song song (giới hạn), có hiển thị tiến độ từng file và link công khai."
+        title="Chỗ lưu ảnh của Quốc"
+        subtitle="Kéo-thả / chọn / dán ảnh → upload song song (giới hạn), có hiển thị tiến độ từng file và link công khai. (Yêu cầu mật khẩu)"
       />
-
       <div className="rounded-xl p-6 bg-[var(--card)] ring-1 ring-white/10 space-y-4">
         {/* Controls */}
         <div className="flex flex-wrap items-center gap-2">
@@ -335,17 +366,7 @@ export default function ImgbbUploadPage() {
           >
             Xoá tất cả
           </button>
-
-          <a
-            href={ALBUM_URL}
-            target="_blank"
-            rel="noreferrer"
-            className="ml-auto text-xs underline opacity-80 hover:opacity-100"
-          >
-            Mở album ImgBB
-          </a>
         </div>
-
         {/* Dropzone */}
         <div
           ref={dropRef}
@@ -360,11 +381,9 @@ export default function ImgbbUploadPage() {
             Giới hạn: 32MB/ảnh. Upload song song: {CONCURRENCY}.
           </div>
         </div>
-
         <p className="text-sm text-[var(--muted)]">
           {busy ? "Đang xử lý..." : msg || "Thêm ảnh để bắt đầu."}
         </p>
-
         {/* Danh sách file */}
         {items.length > 0 && (
           <ul className="space-y-3">
@@ -396,7 +415,6 @@ export default function ImgbbUploadPage() {
                       </span>
                     </div>
                   </div>
-
                   <div className="flex items-center gap-2 shrink-0">
                     {it.status === "uploading" || it.status === "processing" ? (
                       <div className="w-40 h-2 bg-white/10 rounded overflow-hidden">
@@ -410,7 +428,6 @@ export default function ImgbbUploadPage() {
                     ) : it.status === "error" ? (
                       <span className="text-xs text-rose-400">{it.error}</span>
                     ) : null}
-
                     <button
                       onClick={() => removeItem(it.id)}
                       disabled={
@@ -422,7 +439,6 @@ export default function ImgbbUploadPage() {
                     </button>
                   </div>
                 </div>
-
                 {it.status === "done" && it.result && (
                   <div className="mt-2 text-sm flex items-center gap-2">
                     <div className="truncate text-xs text-[var(--muted)]">
@@ -448,7 +464,6 @@ export default function ImgbbUploadPage() {
             ))}
           </ul>
         )}
-
         {/* Export links */}
         {doneCount > 0 && (
           <div className="flex flex-wrap gap-2">
@@ -479,7 +494,6 @@ export default function ImgbbUploadPage() {
           </div>
         )}
       </div>
-
       <div className="mt-6 text-xs text-[var(--muted)]">
         Lưu ý: ImgBB API hiện chưa có tham số để đưa ảnh trực tiếp vào album.
         Hãy dùng UI ImgBB để sắp xếp vào album sau khi upload.

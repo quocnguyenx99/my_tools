@@ -25,6 +25,12 @@ export const TOOLS: ToolConfig[] = [
     description: "Upload 1 hoặc nhiều ảnh lên ImgBB và lấy link công khai.",
     accent: "from-amber-500 to-rose-500",
   },
+  {
+    slug: "quoc-img-upload",
+    title: "Chỗ lưu ảnh của Quốc",
+    description: "Upload ảnh riêng tư, cần mật khẩu để truy cập và lấy link.",
+    accent: "from-blue-600 to-emerald-500",
+  },
 ];
 
 // Gợi ý thêm tool mới:
