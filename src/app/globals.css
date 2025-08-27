@@ -161,6 +161,25 @@ code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 
 .btn-danger { background: var(--danger); color: white; }
 .btn-danger:hover { background: var(--danger-hover); }
 
+/* Nút import nổi bật, dễ nhận biết */
+.btn.btn-upload {
+  background: #2563eb;         /* blue-600 */
+  color: #fff;
+  border: 1px solid #1e3a8a;   /* blue-900 */
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-weight: 600;
+  transition: transform 0.05s ease, box-shadow 0.15s ease, background 0.15s ease;
+  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.25);
+}
+.btn.btn-upload:hover {
+  background: #1d4ed8;         /* blue-700 */
+  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.35);
+}
+.btn.btn-upload:active {
+  transform: translateY(1px);
+}
+
 /* Override some common Tailwind utility background classes used in markup so they match the new palette */
 .bg-blue-600 { background-color: var(--primary) !important; }
 .hover\:bg-blue-700:hover { background-color: var(--primary-hover) !important; }
@@ -195,3 +214,158 @@ code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 
 h1 { font-size: 28px; line-height: 1.25; margin: 0; }
 h2 { font-size: 22px; line-height: 1.3;  margin: 0; }
 h3 { font-size: 18px; line-height: 1.35; margin: 0; }
+
+/* Data table styles */
+.data-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: #ffffff;
+  border: 1px solid #e6eef8;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(2, 6, 23, 0.06);
+  font-size: 14px;
+}
+
+.data-table thead th {
+  background: #f5f9ff;
+  color: #0f1a2a;
+  text-align: left;
+  padding: 12px 10px;
+  font-weight: 700;
+  border-bottom: 1px solid #dce9ff;
+}
+
+.data-table tbody td {
+  padding: 10px 10px;
+  border-bottom: 1px solid #eef2f7;
+  color: #0f172a;
+}
+
+.data-table tbody tr:nth-child(even) {
+  background: #fbfdff;
+}
+
+.data-table tbody tr:hover {
+  background: #f1f6ff;
+}
+
+.data-table .td-strong {
+  font-weight: 600;
+}
+
+.data-table .td-subtle {
+  color: #355;
+}
+
+.data-table .td-syn {
+  color: #254;
+}
+
+.data-table .td-example {
+  color: #475569;
+}
+
+/* Flashcard visuals */
+.flashcard {
+  width: 560px;
+  min-height: 260px;
+  border-radius: 14px;
+  border: 1px solid #e6eef8;
+  background: linear-gradient(180deg, #ffffff 0%, #f9fbff 100%);
+  box-shadow: 0 10px 28px rgba(2, 6, 23, 0.08);
+  padding: 22px;
+  cursor: pointer;
+  user-select: none;
+  transition: transform .12s ease, box-shadow .2s ease;
+}
+.flashcard:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 34px rgba(2, 6, 23, 0.12);
+}
+.flashcard .face {
+  display: flex;
+  flex-direction: column;
+  min-height: 216px;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  text-align: center;
+}
+.flashcard .front .word {
+  font-size: 32px;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+  color: #0f172a;
+}
+.flashcard .front .pron {
+  font-size: 14px;
+  color: #475569;
+  background: #eef4ff;
+  border: 1px solid #d9e6ff;
+  padding: 4px 8px;
+  border-radius: 999px;
+}
+.flashcard .back {
+  align-items: stretch;
+}
+.flashcard .back .row {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 8px;
+  width: 100%;
+  align-items: start;
+}
+.flashcard .back .label {
+  font-size: 12px;
+  color: #64748b;
+  text-align: right;
+  padding-top: 3px;
+}
+.flashcard .back .strong {
+  font-weight: 700;
+  color: #0f172a;
+}
+.flashcard .back .example {
+  font-style: italic;
+  color: #334155;
+}
+.flashcard .hint {
+  font-size: 12px;
+  color: #94a3b8;
+  margin-top: 8px;
+}
+
+/* Chips for synonyms */
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip {
+  background: #e8f3ff;
+  color: #0a3a7a;
+  border: 1px solid #cfe5ff;
+  border-radius: 999px;
+  padding: 2px 10px;
+  font-size: 12px;
+  line-height: 18px;
+}
+
+/* Prev/Next buttons */
+.flash-nav-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  border: 1px solid #d7e3f7;
+  background: #f3f8ff;
+  color: #0f1a2a;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  box-shadow: 0 2px 6px rgba(2, 6, 23, 0.08);
+  transition: transform .05s ease, background .15s ease, box-shadow .15s ease;
+}
+.flash-nav-btn:hover { background: #e8f2ff; box-shadow: 0 3px 8px rgba(2,6,23,0.12); }
+.flash-nav-btn:active { transform: translateY(1px); }
+.flash-nav-btn:disabled { opacity: .45; cursor: not-allowed; }
+.flash-nav-btn.primary { background: #2563eb; color: #fff; border-color: #1d4ed8; }
+.flash-nav-btn.primary:hover { background: #1d4ed8; }

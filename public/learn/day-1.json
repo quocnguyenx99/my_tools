@@ -1,0 +1,187 @@
+{
+  "meta": {
+    "dateISO": "2025-08-26"
+  },
+  "items": [
+    {
+      "word": "attend",
+      "pronunciation": "/əˈtend/",
+      "meaningEn": "to be present at an event",
+      "meaningVi": "tham dự",
+      "synonyms": [
+        "participate in",
+        "take part in",
+        "join"
+      ],
+      "example": "She will attend the annual meeting tomorrow."
+    },
+    {
+      "word": "recruit",
+      "pronunciation": "/rɪˈkruːt/",
+      "meaningEn": "to hire new people for a job",
+      "meaningVi": "tuyển dụng",
+      "synonyms": [
+        "hire",
+        "employ",
+        "take on"
+      ],
+      "example": "The company plans to recruit more IT staff."
+    },
+    {
+      "word": "colleague",
+      "pronunciation": "/ˈkɒliːɡ/",
+      "meaningEn": "a person you work with",
+      "meaningVi": "đồng nghiệp",
+      "synonyms": [
+        "coworker",
+        "associate",
+        "team member"
+      ],
+      "example": "My colleagues are very supportive of new projects."
+    },
+    {
+      "word": "supervisor",
+      "pronunciation": "/ˈsuːpərvaɪzər/",
+      "meaningEn": "a person who manages staff",
+      "meaningVi": "quản lý trực tiếp",
+      "synonyms": [
+        "manager",
+        "boss",
+        "overseer"
+      ],
+      "example": "Please ask your supervisor before leaving early."
+    },
+    {
+      "word": "assign",
+      "pronunciation": "/əˈsaɪn/",
+      "meaningEn": "to give someone a task",
+      "meaningVi": "phân công",
+      "synonyms": [
+        "delegate",
+        "allocate",
+        "designate"
+      ],
+      "example": "The manager assigned me to prepare the report."
+    },
+    {
+      "word": "submit",
+      "pronunciation": "/səbˈmɪt/",
+      "meaningEn": "to formally give a document/task",
+      "meaningVi": "nộp, gửi",
+      "synonyms": [
+        "hand in",
+        "turn in",
+        "send in"
+      ],
+      "example": "Employees must submit expense reports by Friday."
+    },
+    {
+      "word": "schedule",
+      "pronunciation": "/ˈʃedjuːl/ (BrE), /ˈskedʒuːl/ (AmE)",
+      "meaningEn": "a plan of events or times",
+      "meaningVi": "lịch trình / lên lịch",
+      "synonyms": [
+        "timetable",
+        "agenda",
+        "plan"
+      ],
+      "example": "The flight is scheduled to depart at 7 p.m."
+    },
+    {
+      "word": "deadline",
+      "pronunciation": "/ˈdedlaɪn/",
+      "meaningEn": "the final time to complete something",
+      "meaningVi": "hạn chót",
+      "synonyms": [
+        "due date",
+        "time limit",
+        "cut-off date"
+      ],
+      "example": "We have a tight deadline for this project."
+    },
+    {
+      "word": "memo",
+      "pronunciation": "/ˈmeməʊ/",
+      "meaningEn": "a written message in business",
+      "meaningVi": "bản ghi nhớ",
+      "synonyms": [
+        "note",
+        "message",
+        "bulletin"
+      ],
+      "example": "The director sent a memo about the new policy."
+    },
+    {
+      "word": "policy",
+      "pronunciation": "/ˈpɒləsi/",
+      "meaningEn": "a set of official rules",
+      "meaningVi": "chính sách",
+      "synonyms": [
+        "regulation",
+        "rule",
+        "guideline"
+      ],
+      "example": "Company policy requires all visitors to sign in."
+    },
+    {
+      "word": "efficient",
+      "pronunciation": "/ɪˈfɪʃnt/",
+      "meaningEn": "working in a well-organized way",
+      "meaningVi": "hiệu quả",
+      "synonyms": [
+        "productive",
+        "effective",
+        "streamlined"
+      ],
+      "example": "The new software is more efficient than the old one."
+    },
+    {
+      "word": "occupy",
+      "pronunciation": "/ˈɒkjupaɪ/",
+      "meaningEn": "to take up space or time",
+      "meaningVi": "chiếm (chỗ)",
+      "synonyms": [
+        "take up",
+        "fill",
+        "engage"
+      ],
+      "example": "The meeting will occupy the entire afternoon."
+    },
+    {
+      "word": "arrange",
+      "pronunciation": "/əˈreɪndʒ/",
+      "meaningEn": "to organize or plan an event",
+      "meaningVi": "sắp xếp",
+      "synonyms": [
+        "organize",
+        "set up",
+        "plan"
+      ],
+      "example": "They will arrange a conference call with the client."
+    },
+    {
+      "word": "equipment",
+      "pronunciation": "/ɪˈkwɪpmənt/",
+      "meaningEn": "the tools needed for a task",
+      "meaningVi": "thiết bị",
+      "synonyms": [
+        "tools",
+        "machinery",
+        "gear"
+      ],
+      "example": "The office equipment needs repair."
+    },
+    {
+      "word": "evaluate",
+      "pronunciation": "/ɪˈvæljueɪt/",
+      "meaningEn": "to judge the quality of something",
+      "meaningVi": "đánh giá",
+      "synonyms": [
+        "assess",
+        "review",
+        "appraise"
+      ],
+      "example": "The manager will evaluate staff performance."
+    }
+  ]
+}

@@ -24,7 +24,6 @@ type FileItem = {
 
 const MAX_SIZE = 32 * 1024 * 1024; // 32MB
 const CONCURRENCY = 3;
-const ALBUM_URL = "https://ibb.co/album/N6Tp2J";
 const API_ROUTE = "/api/quoc-imgbb"; // Sử dụng route khác để đổi key
 const UPLOAD_PASSWORD = "Mercy@298919"; // Đổi mật khẩu tại đây
 
